@@ -24,6 +24,7 @@
     "node-fetch": "2",
     "passport": "^0.2.1",
     "passport-deezer": "^0.2.0",
+    "slugify": "^1.6.5",
     "youtube-dl-wrap": "^2.1.1",
     "youtube-search": "^1.1.6"
   }
