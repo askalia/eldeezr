@@ -29,8 +29,7 @@ const startFetcher = async ({ accessToken, profileId }) => {
         console.log('you picked no track(s) in playlist. end.')
         return ;
     }
-    
-    await runAudioExtraction(selectedTracksNames.shift());
+    await runAudioExtraction(selectedTracksNames);
 
 }
 

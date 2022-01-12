@@ -1,18 +1,21 @@
 const { GRABBED_AUDIOS_PATH } = require("./audio.helper");
 const fs = require('fs');
 
-module.exports.cleanupAudiosFolder = () => {    
-    const path = GRABBED_AUDIOS_PATH;
-    console.log("\n");
-    if (! fs.existsSync(path)){
-        return ;
-    }
+module.exports.cleanupAudiosFolder = () => { 
     
-    console.log('* cleaning up *.part files');
-    let regex = /[.]part$/
-    fs.readdirSync(path)
-        .filter(f => regex.test(f))
-        .forEach(f => fs.unlinkSync(path + '/'+ f))
+    const cleanMac = () => {
+        const path = GRABBED_AUDIOS_PATH;
+        console.log("\n");
+        if (! fs.existsSync(path)){
+            return ;
+        }   
+        console.log('* cleaning up *.part files');
+        const regex = /[.]part$/
+        fs.readdirSync(path)
+            .filter(f => regex.test(f))
+            .forEach(f => fs.unlinkSync(path + '/'+ f))        
+    }
+    cleanMac();
     console.log('* cleanup done');
 }
 

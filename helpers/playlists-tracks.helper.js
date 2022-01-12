@@ -10,3 +10,10 @@ module.exports.getTracksNamesFromTracklistUrl = async function (tracklistUrl){
     const { data } = await (await fetch(tracklistUrl)).json();        
     return data.map(track => [track.artist.name, track.album.title, track.title].join(' - '));
 }
+
+module.exports.getTracksShifter = function* getTracksShifter(tracksList){
+    for (const item of tracksList){
+        yield item;
+    }
+    
+}

@@ -29,11 +29,9 @@ module.exports.getAudioTrackFromYoutube = async ({ trackUrl, trackTitle }, { aud
         // instal youtube-dl and local project's path
         youtubeDlWrap = await downloadYoutubeDl();        
     }
-    else {
-        console.log('path  :', await getPathToYoutubeDl())
+    else {        
         // use locally present binary
-        youtubeDlWrap = new YoutubeDlWrap(await getPathToYoutubeDl());
-        console.log('36');
+        youtubeDlWrap = new YoutubeDlWrap(await getPathToYoutubeDl());        
     }
     
     if (! fs.existsSync(audiosPath)){
@@ -43,7 +41,7 @@ module.exports.getAudioTrackFromYoutube = async ({ trackUrl, trackTitle }, { aud
     console.log('youtube URL to grab : ', trackUrl)
     let youtubeDlEventEmitter = youtubeDlWrap.exec([trackUrl,
         "--extract-audio", 
-        "--audio-format", "vorbis", 
+        "--audio-format", process.env.AUDIO_FORMAT, 
         "--audio-quality", "128k",
         "-o", `${audiosPath}/${trackTitle.toLowerCase()+'.ogg'}`])
       .on("progress", (progress) => {
@@ -59,7 +57,7 @@ module.exports.getAudioTrackFromYoutube = async ({ trackUrl, trackTitle }, { aud
     return youtubeDlEventEmitter;
 };
 
-module.exports.getAudioData = async (trackTitle) => {
+module.exports.getAudioTrackMetadata = async (trackTitle) => {
     const [youtubeTrackData] = await searchTrackOnYoutube(trackTitle);    
     const { link: youtubeLink } = youtubeTrackData;    
     const deezerTrackTitle = trackTitle;
